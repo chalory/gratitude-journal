@@ -25,6 +25,7 @@ type entry struct {
 // 	// {ID: 3, Entry: "I made third message", Date: "05/20/2022", User_name: "user1"},
 // }
 
+//yo
 func checkErr(err error) {
 	if err != nil {
 		log.Fatal(err)
