@@ -1,12 +1,14 @@
 package main
 
 import (
+	// "database/sql"
 	"log"
-	"net/http"
 
-	"github.com/gin-gonic/contrib/static"
+	// "os"
+
 	"github.com/gin-gonic/gin"
 	cors "github.com/rs/cors/wrapper/gin"
+	// "errors"
 )
 
 type entry struct {
@@ -16,6 +18,13 @@ type entry struct {
 	User_name string `json:"user_name"`
 }
 
+// var entries = []entry{
+// 	{ID: 1, Entry: "null", Date: "null", User_name: "null"},
+// 	// {ID: 1, Entry: "My first message", Date: "05/18/2022", User_name: "user1"},
+// 	// {ID: 2, Entry: "Hi name is user2", Date: "05/19/2022", User_name: "user2"},
+// 	// {ID: 3, Entry: "I made third message", Date: "05/20/2022", User_name: "user1"},
+// }
+
 func checkErr(err error) {
 	if err != nil {
 		log.Fatal(err)
@@ -23,26 +32,9 @@ func checkErr(err error) {
 }
 
 func main() {
-	// Set the router as the default one shipped with Gin
 	router := gin.Default()
-
-	// Serve frontend static files
-	router.Use(static.Serve("/", static.LocalFile("./views/js", true)))
-
-	// Setup route group for the API
-	{
-		router.GET("/", func(c *gin.Context) {
-			c.JSON(http.StatusOK, gin.H{
-				"message": "pong",
-			})
-		})
-	}
-
-	router.GET("/getEntries", GetEntry)
+	router.GET("/entries", GetEntry)
+	router.POST("/entries", createEntry)
 	router.Use(cors.Default())
-
-	// JokeHandler retrieves a list of available jokes
-
-	// Start and run the server
-	router.Run(":8080")
+	router.Run("localhost:8080")
 }

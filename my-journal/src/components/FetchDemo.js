@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Notes from './Notes';
+
 const FetchDemo = () => {
   const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const fetchData = () => {
-    fetch('http://localhost:8080/getEntries')
+    fetch('http://localhost:8080/entries')
       .then((response) => response.json())
       .then((data) => {
         setIsLoading(false);
@@ -25,7 +26,7 @@ const FetchDemo = () => {
   }
   return (
     <div>
-      <h1>Fetch Example</h1>
+      <h1>Posts</h1>
       {notes && <Notes data={notes} />}
       {isError && <div>Error fetching data.</div>}
     </div>
